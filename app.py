@@ -4,7 +4,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
-from urllib.parse import urlparse, parse_qs
+#from urllib.parse import urlparse, parse_qs
 #import socket
 
 from customLib import (
@@ -17,75 +17,18 @@ from customLib import (
 
 app = Flask(__name__)
 
-FIND_ONLY_ATTRS = {
+"""FIND_ONLY_ATTRS = {
     "a" : ["href"],
     "img" : ["src", "height", "width"]
 }
 
 NON_TEXT_TAGS = [
     "img",
-]
+]"""
 
 
 
-"""def validate_url(url):
-    url_parser = urlparse(url)
-    print("SCHEME", url_parser.scheme)
-    if not url_parser.scheme:
-        url = DEFAUL_URL_PROTOCOL + url
-        url_parser = urlparse(url)
-    return (
-        url,
-        url_parser.scheme,
-        url_parser.netloc,
-        url_parser.path,
-        parse_qs(url_parser.query)
-    )"""
 
-
-def parse_url(url, tags_to_parse):
-    print("URL---------------->", url)
-    return_data = {}
-
-    try:
-        response = requests.get(url)
-    except Exception as e:
-        return None, None, "Unable to open given url, please verify the url and try again!!"
-    else:    
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, "html.parser")
-            for tag in tags_to_parse:
-                tags_found = []         
-                for elm in soup.find_all(tag):
-                    #print(elm, "---------",elm.attrs)
-                    #break
-                    """attr = elm.attrs
-                    attr['text'] = get_clean_text(elm.text)
-                    """
-                    elm_info = {}
-                    
-                    if tag in FIND_ONLY_ATTRS:
-                        for attr in FIND_ONLY_ATTRS[tag]:
-                            elm_info[attr] = elm.get(attr)
-                    if tag not in NON_TEXT_TAGS:
-                        elm_info['text'] = get_clean_text(elm.text)
-
-                    tags_found.append(elm_info)
-
-                    """return_data.append({
-                    "tag" : tag,
-                    "findings" : tags_found
-                    })"""
-                #return_data.append({tag : tags_found}) 
-                return_data[tag] = tags_found
-
-            return return_data, get_clean_text(soup.find("title").text), None
-    
-        else:
-            return None, None, {
-                "status_code" : response.status_code,
-                "error_message" : "Unable to parse given url"
-            }
 
 @app.route("/")
 def index():
