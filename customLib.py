@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from flask import request
 import requests
 from urllib.parse import urlparse, parse_qs
 
@@ -93,3 +94,39 @@ def parse_url(url, tags_to_parse):
                     "error_message" : "Unable to parse given url"
                 }
             )
+
+
+def process_request():
+    """
+    Process the requests
+    Return : 
+    """
+    HEADINGS    = ["h1", "h2", "h3", "h4", "h5", "h6"]
+    OTHER_TAGS  = ['a', 'p', 'img']
+    TAGS_QP_NAME = ["tag-a", "tag-p", "tag-img"]
+    # default tags to extract when no filters are provided
+    #default_tags = OTHER_TAGS + HEADINGS
+
+    # get all QPs which is not null
+    tags_to_extract = [ request.args.get(qp_name) \
+                        for qp_name in TAGS_QP_NAME \
+                        if request.args.get(qp_name) ]
+
+    # check if heading tag is set and then append all headins
+    headings_qp = request.args.get("tag-h")
+    if headings_qp == "h":
+        tags_to_extract = tags_to_extract + HEADINGS
+
+    # get url qp value
+    url = request.args.get('url')
+
+    # if tags to extract is empty, use default tags to extract
+    tags_to_extract = tags_to_extract if tags_to_extract else HEADINGS + OTHER_TAGS
+
+    # validat the given url in the request and extract url info    
+    url, scheme, netloc, path, query_param = validate_url(url)
+
+    # parse given url and find specified tags
+    context, title, err = parse_url(url, tags_to_extract)
+
+    return context, title, err, url
