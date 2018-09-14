@@ -15,13 +15,17 @@ NON_TEXT_TAGS = [
     "img",
 ]
 
+HEADINGS     = ["h1", "h2", "h3", "h4", "h5", "h6"]
+OTHER_TAGS   = ['a', 'p', 'img']
+TAGS_QP_NAMES = ["tag-a", "tag-p", "tag-img", "tag-h"]
+URL_QP_NAME = 'url'
+
 
 def get_clean_text(text):
     """
     Clean text content : replace \\n \\t and remove blank spaces
     Return : clean text if text else None
-    """
-    #print("-------------", type(text))    
+    """    
     if type(text) is str:
         return " ".join(text.replace("\r", "").replace("\n","").strip().split())
     else : return text
@@ -32,8 +36,7 @@ def validate_url(url):
     Validates the given url and adds if protocol missing
     Returns : url, scheme, netloc, path and query_parms
     """
-    url_parser = urlparse(url)
-    print("SCHEME", url_parser.scheme)
+    url_parser = urlparse(url)    
     if not url_parser.scheme:
         url = DEFAUL_URL_PROTOCOL + url
         url_parser = urlparse(url)
@@ -101,24 +104,18 @@ def process_request():
     Process the requests
     Return : 
     """
-    HEADINGS    = ["h1", "h2", "h3", "h4", "h5", "h6"]
-    OTHER_TAGS  = ['a', 'p', 'img']
-    TAGS_QP_NAME = ["tag-a", "tag-p", "tag-img"]
-    # default tags to extract when no filters are provided
-    #default_tags = OTHER_TAGS + HEADINGS
-
     # get all QPs which is not null
     tags_to_extract = [ request.args.get(qp_name) \
-                        for qp_name in TAGS_QP_NAME \
+                        for qp_name in TAGS_QP_NAMES[:3] \
                         if request.args.get(qp_name) ]
 
     # check if heading tag is set and then append all headins
-    headings_qp = request.args.get("tag-h")
+    headings_qp = request.args.get(TAGS_QP_NAMES[-1])
     if headings_qp == "h":
         tags_to_extract = tags_to_extract + HEADINGS
 
     # get url qp value
-    url = request.args.get('url')
+    url = request.args.get(URL_QP_NAME)
 
     # if tags to extract is empty, use default tags to extract
     tags_to_extract = tags_to_extract if tags_to_extract else HEADINGS + OTHER_TAGS
