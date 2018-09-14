@@ -7,6 +7,11 @@ from pprint import pprint
 from urllib.parse import urlparse, parse_qs
 #import socket
 
+from customLib import (
+    get_clean_text,
+    validate_url
+    )
+
 # Connect to Redis
 #redis = Redis(host="redis", db=0, socket_connect_timeout=2, socket_timeout=2)
 
@@ -21,9 +26,9 @@ NON_TEXT_TAGS = [
     "img",
 ]
 
-DEFAUL_URL_PROTOCOL = "https://"
 
-def validate_url(url):
+
+"""def validate_url(url):
     url_parser = urlparse(url)
     print("SCHEME", url_parser.scheme)
     if not url_parser.scheme:
@@ -35,17 +40,7 @@ def validate_url(url):
         url_parser.netloc,
         url_parser.path,
         parse_qs(url_parser.query)
-    )
-
-def get_clean_text(text):
-    """
-    Clean text content : replace \\n \\t and remove blank spaces
-    Return : clean text if text else None
-    """
-    #print("-------------", type(text))    
-    if type(text) is str:
-        return " ".join(text.replace("\r", "").replace("\n","").strip().split())
-    else : return text
+    )"""
 
 
 def parse_url(url, tags_to_parse):
