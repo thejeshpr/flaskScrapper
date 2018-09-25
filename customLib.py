@@ -1,3 +1,4 @@
+import json
 from bs4 import BeautifulSoup
 from flask import request
 import requests
@@ -20,6 +21,16 @@ OTHER_TAGS = ['a', 'p', 'img']
 TAGS_QP_NAMES = ["tag-a", "tag-p", "tag-img", "tag-h"]
 URL_QP_NAME = 'url'
 RETURN_JSON_QP_NAME = 'returnJson'
+
+
+def read_tags_def():
+    """
+    Reads and return tags def from tagsDefinition from JSON tagsDefinition.json
+    Return : tagsDefinition
+    """
+    with open('tagsDefinition.json', 'r') as fd:
+        tags_def = json.load(fd)
+    return tags_def
 
 
 def get_clean_text(text):
@@ -80,17 +91,17 @@ def parse_url(url, tags_to_parse):
     else:
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
-            for tag in tags_to_parse:
-                tags_found = []
-                for elm in soup.find_all(tag):
+            tags_def = read_tags_def()
+            for tag_def in tags_def:
+                found_tags = []
+                for elm in soup.find_all(tag_def["name"]):
                     elm_info = {}
-                    if tag in FIND_ONLY_ATTRS:
-                        for attr in FIND_ONLY_ATTRS[tag]:
-                            elm_info[attr] = elm.get(attr)
-                    if tag not in NON_TEXT_TAGS:
-                        elm_info['text'] = get_clean_text(elm.text)
-                    tags_found.append(elm_info)
-                return_data[tag] = tags_found
+                    if tag_def['find_text']:
+                        elm_info['text'] = get_clean_text(elm.text)                    
+                    for attr in tag_def['attrs']:
+                        elm_info[attr] = elm.get(attr)
+                    found_tags.append(elm_info)
+                return_data[tag_def["name"]] = found_tags            
 
             return {
                 "context": return_data,

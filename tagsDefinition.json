@@ -1,0 +1,52 @@
+[
+	{
+		"name" : "a",
+		"find_text" : true,
+		"attrs" : ["href"]
+	},
+	{
+		"name" : "img",
+		"find_text" : false,
+		"attrs" : ["width", "height", "src"]
+	},
+	{
+		"name" : "p",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "h1",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "h2",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "h3",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "h4",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "h5",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "h6",
+		"find_text" : true,
+		"attrs" : []
+	},
+	{
+		"name" : "span",
+		"find_text" : true,
+		"attrs" : []
+	}
+]
