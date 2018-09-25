@@ -33,12 +33,7 @@
         </button>        
       </div>
       </nav>
-      <!-- As a heading -->
-      <!--<nav class="navbar navbar-dark bg-primary">
-        <div class="container">
-          <span class="navbar-brand mb-0 h1 c-nav-title">MyTinyScrapper</span>
-        </div>
-      </nav>-->
+      <!-- Fixed Navbar end-->      
     </header>    
       
     <div class="container mt-5">
@@ -55,38 +50,20 @@
                     {{ error }} <i class="far fa-frown"></i>
                   </div>
                 {% endif %}
-                
-
+                <!-- Form Begin -->
                 <form action="/parse">
                   <div class="row mb-3">
                     <div class="col col-md-10 col-sm-12 mt-2">
                       <input type="text" class="form-control form-control-lg" placeholder="URL (Eg : http://www.example.com)" name="url" required value="">
                     </div>
-                    <div class="col col-md-2 col-sm-12 mt-2">
-                      <!--<input type="submit" class="form-control form-control-lg btn btn-success btm-sm" value="Parse">-->
+                    <div class="col col-md-2 col-sm-12 mt-2">                      
                       <button type="submit" class="form-control form-control-lg btn btn-success btm-sm">
                         <h3>Parse <i class="fas fa-angle-right"></h3></i>
                       </button>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col col-md-10">
-                      <!--<div class="form-check form-check-inline">
-                        <input class="form-check-input form-control-lg" type="checkbox" id="tag-a" name="tag-a" value="a">
-                        <label class="form-check-label form-control-lg" for="inlineCheckbox1">Hyperlinks</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input form-control-lg" type="checkbox" id="tag-p" name="tag-p" value="p">
-                        <label class="form-check-label form-control-lg" for="inlineCheckbox2">Paragraphs</label>
-                      </div>          
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input form-control-lg" type="checkbox" id="tag-img" name="tag-img" value="img">
-                        <label class="form-check-label form-control-lg" for="inlineCheckbox3">Images</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input form-control-lg" type="checkbox" id="tag-h" name="tag-h" value="h">
-                        <label class="form-check-label form-control-lg" for="inlineCheckbox3">Headings</label>
-                      </div>-->
+                    <div class="col col-md-10">                      
                       <div class="form-check form-check-inline">
                         <input class="form-check-input form-control-lg" type="checkbox" id="returnJson" name="returnJson" value="true">
                         <label class="form-check-label form-control-lg" for="inlineCheckbox3">Return JSON</label>
@@ -94,6 +71,7 @@
                     </div>
                   </div>
                 </form>
+                <!-- Form End -->
               </main>
             </div>
           </div>
