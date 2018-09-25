@@ -76,7 +76,7 @@
                       </button>
                     </div>
                   </div>
-                  <!--<div class="row">
+                  <div class="row">
                     <div class="col col-md-10">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input form-control-lg" type="checkbox" id="tag-a" name="tag-a" value="a">
@@ -94,8 +94,12 @@
                         <input class="form-check-input form-control-lg" type="checkbox" id="tag-h" name="tag-h" value="h">
                         <label class="form-check-label form-control-lg" for="inlineCheckbox3">Headings</label>
                       </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input form-control-lg" type="checkbox" id="tag-h" name="json-response" value="true">
+                        <label class="form-check-label form-control-lg" for="inlineCheckbox3">Return JSON</label>
+                      </div>
                     </div>
-                  </div>-->
+                  </div>
                 </form>
               </main>
             </div>
@@ -118,138 +122,18 @@
                 <div class="card">
                   <div class="card-body">                                    
                       <pre id="json-renderer"></pre>                  
-                      <textarea id="json-input" style="width: 100%; display: none;">{{ context }}</textarea>                    
+                      <textarea id="json-input" style="width: 100%; display: none;">{{ context }}</textarea>
                   </div>
-                </div>
-                <!-- collapse start -->
-                <!--<div id="accordion">
-                  <div class="card" >
-                    <div class="card-header" id="headingOne">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Images (221)
-                        </button>
-                      </h5>
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                      <div class="card-body" style="background-color: #FDFEFE;">
-
-                        <div class="card">
-                          <div class="card-body">
-                            <p><strong>href : </strong>https://github.com/aws-samples/aws-serverless-samfarm/blob/master/website/website.yaml</p>
-                            <p><strong>text : </strong> Click Me</p>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="card">
-                          <div class="card-body">
-                            <p><strong>href : </strong>https://github.com/aws-samples/aws-serverless-samfarm/blob/master/website/website.yaml</p>
-                            <p><strong>text : </strong> Click Me</p>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="card">
-                          <div class="card-body">
-                            <p><strong>href : </strong>https://github.com/aws-samples/aws-serverless-samfarm/blob/master/website/website.yaml</p>
-                            <p><strong>text : </strong> Click Me</p>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header" id="headingTwo">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Collapsible Group Item #2
-                        </button>
-                      </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                      <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header" id="headingThree">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          Collapsible Group Item #3
-                        </button>
-                      </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                      <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
-                <!-- collapse end -->
-
+                </div>                
               </main>
             </div>
           </div>
         </div>
       </div>
       {% endif %}
-    </div>
+    </div>    
 
-    <!-- Begin page content -->
-    <!--<main role="main" class="container">
-      <h1 class="mt-5">Simple Web Scrapper</h1>
-      <p class="lead">Simple web scrapper built using Python, Flask and BeautyfulSoup</p>
-
-      {% if error %}
-        <div class="alert alert-danger" role="alert">
-          {{ error }} <i class="far fa-frown"></i>
-        </div>
-      {% endif %}
-      
-
-      <form action="/parse">
-        <div class="row">
-          <div class="col col-md-10">
-            <input type="text" class="form-control form-control-lg" placeholder="URL (Eg : http://www.example.com)" name="url" autofocus required>
-          </div>
-          <div class="col col-md-2">            
-            <button type="submit" class="form-control form-control-lg btn btn-success btm-sm">
-              <h3>Parse <i class="fas fa-angle-right"></h3></i>
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col col-md-10" align="center">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input form-control-lg" type="checkbox" id="tag-a" name="tag-a" value="a">
-              <label class="form-check-label form-control-lg" for="inlineCheckbox1">Hyperlinks (&lt;a&gt;)</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input form-control-lg" type="checkbox" id="tag-p" name="tag-p" value="p">
-              <label class="form-check-label form-control-lg" for="inlineCheckbox2">Paragraph (&lt;p&gt;)</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input form-control-lg" type="checkbox" id="tag-img" name="tag-img" value="img">
-              <label class="form-check-label form-control-lg" for="inlineCheckbox3">Images (&lt;img&gt;)</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input form-control-lg" type="checkbox" id="tag-h" name="tag-h" value="h">
-              <label class="form-check-label form-control-lg" for="inlineCheckbox3">Headings (&lt;h1&gt; - &lt;h6&gt;)</label>
-            </div>
-          </div>
-        </div>
-      </form>
-            
-      {% if context %}
-        <pre>{{ context }}</pre>
-      {% endif %}
-      
-
-    </main>-->
-
+    <!--Footer-->
     <footer class="footer">
       <div class="container">
         <span class="text-muted">Place sticky footer content here.</span>
@@ -266,7 +150,7 @@
     <script src="https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.js"></script>    
     <script type="text/javascript">    
       var data = JSON.parse($("#json-input").text());
-      $('#json-renderer').jsonViewer(data, {collapsed: true});
+      $('#json-renderer').jsonViewer(data, {collapsed: false});
     </script>
   </body>
 </html>
