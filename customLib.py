@@ -19,6 +19,7 @@ HEADINGS     = ["h1", "h2", "h3", "h4", "h5", "h6"]
 OTHER_TAGS   = ['a', 'p', 'img']
 TAGS_QP_NAMES = ["tag-a", "tag-p", "tag-img", "tag-h"]
 URL_QP_NAME = 'url'
+RETURN_JSON_QP_NAME = 'returnJson'
 
 
 def get_clean_text(text):
@@ -48,6 +49,19 @@ def validate_url(url):
         parse_qs(url_parser.query)
     )
 
+def convert_data_to_json_frmt(parsed_data):
+    """
+    Convert the given data to json suitable output
+    Returns : Dict
+    """
+    return {
+        "ParsedResult" : parsed_data['context'],
+        "Title" : parsed_data['title'],
+        "URL" : parsed_data['title'],
+        "return_json" : True
+    }
+
+
 
 def parse_url(url, tags_to_parse):
     """
@@ -59,11 +73,9 @@ def parse_url(url, tags_to_parse):
     try:
         response = requests.get(url)
     except Exception as e:
-        return (
-            None,
-            None,
-            "Unable to open given url, please verify the url and try again!!"
-        )
+        return {
+            "error" : "Unable to open given url, please verify the url and try again!!"
+        }            
     else:    
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, "html.parser")
@@ -82,22 +94,15 @@ def parse_url(url, tags_to_parse):
                      
                 return_data[tag] = tags_found
 
-            return (
-                return_data,
-                get_clean_text(soup.find("title").text),
-                None
-            )
-    
+            return {
+                "context" : return_data,
+                "title" : get_clean_text(soup.find("title").text)
+            }                
         else:
-            return (
-                None,
-                None, 
-                {
-                    "status_code" : response.status_code,
-                    "error_message" : "Unable to parse given url"
-                }
-            )
-
+            return {
+                "error" : "Unable to parse given url, status code : {}".format(response.status_code)
+            }
+            
 
 def process_request():
     """
@@ -115,7 +120,7 @@ def process_request():
         tags_to_extract = tags_to_extract + HEADINGS
 
     # get url qp value
-    url = request.args.get(URL_QP_NAME)
+    url = request.args.get(URL_QP_NAME)    
 
     # if tags to extract is empty, use default tags to extract
     tags_to_extract = tags_to_extract if tags_to_extract else HEADINGS + OTHER_TAGS
@@ -124,6 +129,9 @@ def process_request():
     url, scheme, netloc, path, query_param = validate_url(url)
 
     # parse given url and find specified tags
-    context, title, err = parse_url(url, tags_to_extract)
-
-    return context, title, err, url
+    parsed_data = parse_url(url, tags_to_extract)
+    parsed_data['url'] = url
+    
+    if request.args.get(RETURN_JSON_QP_NAME) == 'true':
+        return convert_data_to_json_frmt(parsed_data)
+    return parsed_data
