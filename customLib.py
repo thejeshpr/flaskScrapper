@@ -84,11 +84,11 @@ def parse_url(url):
                 for elm in soup.find_all(tag_def["name"]):
                     elm_info = {}
                     if tag_def['find_text']:
-                        elm_info['text'] = get_clean_text(elm.text)                    
+                        elm_info['text'] = get_clean_text(elm.text)
                     for attr in tag_def['attrs']:
                         elm_info[attr] = elm.get(attr)
                     found_tags.append(elm_info)
-                return_data[tag_def["name"]] = found_tags            
+                return_data[tag_def["name"]] = found_tags
 
             return {
                 "context": return_data,
@@ -105,8 +105,8 @@ def process_request():
     """
     Process the requests
     Return : Processed Data
-    """    
-    url = request.args.get(URL_QP_NAME)    
+    """
+    url = request.args.get(URL_QP_NAME)
 
     # validat the given url in the request and extract url info
     url, scheme, netloc, path, query_param = validate_url(url)

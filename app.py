@@ -1,15 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, jsonify
 import os
 import json
-import requests
-from bs4 import BeautifulSoup
-from pprint import pprint
-from customLib import (
-    get_clean_text,
-    validate_url,
-    parse_url,
-    process_request
-    )
+from customLib import validate_url
 # import socket
 
 TITLE = os.getenv("WEB_APP_NAME") or "TinyWebScrapper"
@@ -58,7 +50,8 @@ def parse():
                            web_page_title=parsed_data['title'],
                            title=TITLE)
 
+
 if __name__ == "__main__":
-    #app.run(debug=True)
-    #app.run(host='0.0.0.0', port=8080)
-    app.run(host='0.0.0.0', port=80)
+    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080)
+    #app.run(host='0.0.0.0', port=80)
