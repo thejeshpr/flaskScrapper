@@ -5,7 +5,7 @@ import requests
 from urllib.parse import urlparse, parse_qs
 
 
-DEFAUL_URL_PROTOCOL = "https://"
+DEFAULT_URL_PROTOCOL = "https://"
 URL_QP_NAME = 'url'
 RETURN_JSON_QP_NAME = 'returnJson'
 
@@ -38,7 +38,7 @@ def validate_url(url):
     """
     url_parser = urlparse(url)
     if not url_parser.scheme:
-        url = DEFAUL_URL_PROTOCOL + url
+        url = DEFAULT_URL_PROTOCOL + url
         url_parser = urlparse(url)
     return (
         url,
