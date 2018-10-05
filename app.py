@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 import os
 import json
-from customLib import validate_url
+from customLib import process_request
 # import socket
 
 TITLE = os.getenv("WEB_APP_NAME") or "TinyWebScrapper"
