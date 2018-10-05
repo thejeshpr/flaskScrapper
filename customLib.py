@@ -76,8 +76,8 @@ def parse_url(url):
     except Exception as e:
         return {
             "error": (
-                      "Unable to open given url"
-                      ", please verify the url and try again!!"
+                      "Unable to open given url, "
+                      "please verify the url and try again!!"
                      )
         }
     else:
