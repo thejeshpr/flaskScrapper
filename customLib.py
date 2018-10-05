@@ -111,6 +111,7 @@ def process_request():
     # validate the given url in the request and extract url info
     url, scheme, netloc, path, query_param = validate_url(url)
     
+    # Parse the url
     parsed_data = parse_url(url)
     parsed_data['url'] = url
     if request.args.get(RETURN_JSON_QP_NAME) == 'true':
