@@ -28,7 +28,8 @@ def parse():
     Parse the given url and return specific tags
     Return : renders index.html
     """
-    # return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname(), visits=visits)
+    # return html.format(name=os.getenv("NAME", "world")
+    #, hostname=socket.gethostname(), visits=visits)
 
     parsed_data = process_request()
 
@@ -45,7 +46,9 @@ def parse():
         return jsonify(parsed_data)
 
     return render_template('index.html',
-                           context=json.dumps(parsed_data['context'], indent=4),
+                           context=json.dumps(
+                                              parsed_data['context'], 
+                                              indent=4),
                            url=parsed_data['url'],
                            web_page_title=parsed_data['title'],
                            title=TITLE)

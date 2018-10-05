@@ -26,7 +26,9 @@ def get_clean_text(text):
     Return : clean text if text else None
     """
     if type(text) is str:
-        return " ".join(text.replace("\r", "").replace("\n", "").strip().split())
+        return " ".join(
+                    text.replace("\r", "").replace("\n", "").strip().split()
+                    )
     else:
         return text
 
@@ -73,7 +75,9 @@ def parse_url(url):
         response = requests.get(url)
     except Exception as e:
         return {
-            "error": "Unable to open given url, please verify the url and try again!!"
+            "error": ("Unable to open given url"\
+                     ", please verify the url and try again!!"
+                     )
         }
     else:
         if response.status_code == 200:
@@ -110,7 +114,7 @@ def process_request():
 
     # validate the given url in the request and extract url info
     url, scheme, netloc, path, query_param = validate_url(url)
-    
+
     # Parse the url
     parsed_data = parse_url(url)
     parsed_data['url'] = url
