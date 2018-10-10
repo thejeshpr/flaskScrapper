@@ -33,18 +33,18 @@ def parse():
 
     parsed_data = process_request()
 
-    if parsed_data.get('error') is not None:
-        return render_template('index.html',
-                               error=parsed_data['error'],
-                               url=parsed_data.get('url'),
-                               title=TITLE)
-
     # Check if JSON response requsted
     if parsed_data.get('return_json'):
         # delete return_json from parsed_data, since its required by enduser
         del(parsed_data['return_json'])
         return jsonify(parsed_data)
 
+    if parsed_data.get('error') is not None:
+        return render_template('index.html',
+                               error=parsed_data['error'],
+                               url=parsed_data.get('url'),
+                               title=TITLE)
+    
     return render_template('index.html',
                            context=json.dumps(
                                               parsed_data['context'],

@@ -56,10 +56,18 @@ def convert_data_to_json_frmt(parsed_data):
     Convert the given data to json suitable output
     Returns : Dict
     """
+    if parsed_data.get("error"):
+        return {
+            "status" : "Failed",
+            "error" : parsed_data['error'],
+            "URL": parsed_data['url'],
+            "return_json": True
+        }
     return {
+        "status" : "Success",
         "ParsedResult": parsed_data['context'],
         "Title": parsed_data['title'],
-        "URL": parsed_data['title'],
+        "URL": parsed_data['url'],
         "return_json": True
     }
 
@@ -117,7 +125,7 @@ def process_request():
     url, scheme, netloc, path, query_param = validate_url(url)
 
     # Parse given url
-    parsed_data = parse_url(url)
+    parsed_data = parse_url(url)    
     parsed_data['url'] = url
     if request.args.get(RETURN_JSON_QP_NAME) == 'true':
         return convert_data_to_json_frmt(parsed_data)
