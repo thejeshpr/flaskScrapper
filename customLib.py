@@ -8,6 +8,10 @@ from urllib.parse import urlparse, parse_qs
 DEFAULT_URL_PROTOCOL = "https://"
 URL_QP_NAME = 'url'
 RETURN_JSON_QP_NAME = 'returnJson'
+PROXIES = {
+          "http": "",
+          "https": "",
+        }
 
 
 def read_tags_def():
@@ -58,13 +62,13 @@ def convert_data_to_json_frmt(parsed_data):
     """
     if parsed_data.get("error"):
         return {
-            "status" : "Failed",
-            "error" : parsed_data['error'],
+            "status": "Failed",
+            "error": parsed_data['error'],
             "URL": parsed_data['url'],
             "return_json": True
         }
     return {
-        "status" : "Success",
+        "status": "Success",
         "ParsedResult": parsed_data['context'],
         "Title": parsed_data['title'],
         "URL": parsed_data['url'],
@@ -80,8 +84,9 @@ def parse_url(url):
     return_data = {}
 
     try:
-        response = requests.get(url)
+        response = requests.get(url, proxies=PROXIES)
     except Exception as e:
+        print(e)
         return {
             "error": (
                       "Unable to open given url, "
@@ -125,7 +130,7 @@ def process_request():
     url, scheme, netloc, path, query_param = validate_url(url)
 
     # Parse given url
-    parsed_data = parse_url(url)    
+    parsed_data = parse_url(url)
     parsed_data['url'] = url
     if request.args.get(RETURN_JSON_QP_NAME) == 'true':
         return convert_data_to_json_frmt(parsed_data)

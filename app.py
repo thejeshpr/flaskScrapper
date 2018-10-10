@@ -44,7 +44,7 @@ def parse():
                                error=parsed_data['error'],
                                url=parsed_data.get('url'),
                                title=TITLE)
-    
+
     return render_template('index.html',
                            context=json.dumps(
                                               parsed_data['context'],
