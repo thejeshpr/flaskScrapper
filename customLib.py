@@ -9,9 +9,9 @@ DEFAULT_URL_PROTOCOL = "https://"
 URL_QP_NAME = 'url'
 RETURN_JSON_QP_NAME = 'returnJson'
 PROXIES = {
-          "http": "",
-          "https": "",
-        }
+    "http": "",
+    "https": "",
+}
 
 
 def read_tags_def():
@@ -31,8 +31,8 @@ def get_clean_text(text):
     """
     if type(text) is str:
         return " ".join(
-                    text.replace("\r", "").replace("\n", "").strip().split()
-                    )
+            text.replace("\r", "").replace("\n", "").strip().split()
+        )
     else:
         return text
 
@@ -89,9 +89,9 @@ def parse_url(url):
         print(e)
         return {
             "error": (
-                      "Unable to open given url, "
-                      "please verify the url and try again!!"
-                     )
+                "Unable to open given url, "
+                "please verify the url and try again!!"
+            )
         }
     else:
         if response.status_code == 200:

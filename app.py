@@ -47,8 +47,8 @@ def parse():
 
     return render_template('index.html',
                            context=json.dumps(
-                                              parsed_data['context'],
-                                              indent=4),
+                               parsed_data['context'],
+                               indent=4),
                            url=parsed_data['url'],
                            web_page_title=parsed_data['title'],
                            title=TITLE)

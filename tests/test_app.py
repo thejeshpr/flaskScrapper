@@ -1,5 +1,6 @@
 import json
 import os
+import pytest
 import requests
 from urllib.parse import urljoin
 
@@ -8,9 +9,9 @@ WEB_APP_HOST = os.getenv("WEB_APP_HOST") or "localhost"
 WEB_APP_PORT = os.getenv("WEB_APP_PORT") or "5000"
 URL = 'http://{}:{}'.format(WEB_APP_HOST, WEB_APP_PORT)
 PROXIES = {
-          "http": "",
-          "https": "",
-        }
+    "http": "",
+    "https": "",
+}
 
 
 def http_get(url, params=None):
@@ -27,6 +28,10 @@ class TestApp(object):
         """
         Reads test config from test_config.json
         """
+        port = pytest.config.getoption('web_server_port')
+        host = pytest.config.getoption('web_server_host')
+        with open('port.txt', 'w') as fd:
+            fd.write(host + port)
         with open('test_config.json', 'r') as fd:
             cls.TEST_CONFIG = json.load(fd)
 
