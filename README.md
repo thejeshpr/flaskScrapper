@@ -1,3 +1,4 @@
 # flaskScrapper
 
-A Simple Web Page parser built using Python Flask and BeautifulSoup
+A Simple Container based Web Page parser built using Python Flask and BeautifulSoup.
+
