@@ -59,8 +59,7 @@ class TestApp(object):
         }
         response = http_get(
             urljoin(TestApp.web_server_url, 'parse'), params=qp)
-        assert ('Unable to parse given url, status code : 404'
-                in response.text)
+        assert 'Unable to parse given url' in response.text
 
     def test_parseValidURLUsingAPI(self):
         """
