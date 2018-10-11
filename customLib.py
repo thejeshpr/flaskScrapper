@@ -84,7 +84,7 @@ def parse_url(url):
     return_data = {}
 
     try:
-        response = requests.get(url, proxies=PROXIES)
+        response = requests.get(url)
     except Exception as e:
         print(e)
         return {

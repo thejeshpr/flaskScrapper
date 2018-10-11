@@ -4,13 +4,22 @@ import pytest
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--web_server_port", action="store",
-        default="5000", help="port of the webserver"
+        "--test_url", action="store",
+        required=True, help="Test URL to test"
     )
     parser.addoption(
         "--web_server_host", action="store",
-        default="localhost", help="host of the webserver"
+        required=True, help="host of the webserver"
     )
+    parser.addoption(
+        "--web_server_port", action="store",
+        required=True, help="port of the webserver"
+    )
+
+
+@pytest.fixture
+def test_url(request):
+    return request.config.getoption("--test_url")
 
 
 @pytest.fixture

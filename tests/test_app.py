@@ -1,13 +1,8 @@
-import json
-import os
 import pytest
 import requests
 from urllib.parse import urljoin
 
 
-WEB_APP_HOST = os.getenv("WEB_APP_HOST") or "localhost"
-WEB_APP_PORT = os.getenv("WEB_APP_PORT") or "5000"
-URL = 'http://{}:{}'.format(WEB_APP_HOST, WEB_APP_PORT)
 PROXIES = {
     "http": "",
     "https": "",
@@ -22,24 +17,25 @@ class TestApp(object):
     """ PyTest tests fot flaskScrapper"""
 
     TEST_CONFIG = None
+    web_server_url = None
+    test_url = None
 
     @classmethod
     def setup_class(cls):
         """
-        Reads test config from test_config.json
+        Setup Test Parameters
         """
         port = pytest.config.getoption('web_server_port')
         host = pytest.config.getoption('web_server_host')
-        with open('port.txt', 'w') as fd:
-            fd.write(host + port)
-        with open('test_config.json', 'r') as fd:
-            cls.TEST_CONFIG = json.load(fd)
+        cls.test_url = pytest.config.getoption('test_url')
+        cls.web_server_url = 'http://{}:{}'.format(host, port)
 
     def test_indexpage(self):
         """
         Test the Index Page
         """
-        response = http_get(URL)
+        print(TestApp.web_server_url)
+        response = http_get(TestApp.web_server_url)
         assert 'Simple Web Scrapper' in response.text
 
     def test_parseValidURLUsingHTML(self):
@@ -47,11 +43,11 @@ class TestApp(object):
         Test with Valid URL
         """
         qp = {
-            "url": TestApp.TEST_CONFIG['ValidURL']
+            "url": TestApp.test_url
         }
-        response = http_get(urljoin(URL, 'parse'), params=qp)
-        print(response.text)
-        assert '<p class="lead"><strong>Status Code :</strong>200</p>' \
+        response = http_get(
+            urljoin(TestApp.web_server_url, 'parse'), params=qp)
+        assert '<p class="lead"><strong>Status Code :</strong>200</p>'\
                in response.text
 
     def test_parseWrongURLUsingHTML(self):
@@ -59,21 +55,23 @@ class TestApp(object):
         Test with Invalid URL
         """
         qp = {
-            "url": TestApp.TEST_CONFIG['InvalidURL']
+            "url": 'http://wqragvdb362v8ndjjruj.dndun.dhr/fjjr'
         }
-        response = http_get(urljoin(URL, 'parse'), params=qp)
-        assert ('Unable to open given url, please verify the url and try'
-                ' again!!' in response.text)
+        response = http_get(
+            urljoin(TestApp.web_server_url, 'parse'), params=qp)
+        assert ('Unable to parse given url, status code : 404'
+                in response.text)
 
     def test_parseValidURLUsingAPI(self):
         """
         Test with Valid URL using API
         """
         qp = {
-            "url": TestApp.TEST_CONFIG['ValidURL'],
+            "url": TestApp.test_url,
             "returnJson": "true"
         }
-        response = http_get(urljoin(URL, 'parse'), params=qp)
+        response = http_get(
+            urljoin(TestApp.web_server_url, 'parse'), params=qp)
         assert response.json()['status'] == "Success"
 
     def test_parseInvalidURLUsingAPI(self):
@@ -81,10 +79,11 @@ class TestApp(object):
         Test with Invalid URL using API
         """
         qp = {
-            "url": TestApp.TEST_CONFIG['InvalidURL'],
+            "url": 'http://wqragvdb362v8ndjjruj.dndun.dhr/fjjr',
             "returnJson": "true"
         }
-        response = http_get(urljoin(URL, 'parse'), params=qp)
+        response = http_get(
+            urljoin(TestApp.web_server_url, 'parse'), params=qp)
         assert response.json()['status'] == "Failed"
 
     @classmethod
