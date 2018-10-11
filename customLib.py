@@ -114,7 +114,7 @@ def parse_url(url):
             }
         else:
             return {
-                "error": "Unable to parse given url, status code : {}".
+                "error": "Unable to open given url, status code : {}".
                          format(response.status_code)
             }
 
